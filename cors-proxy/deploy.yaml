@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cors-proxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cors-proxy
+  template:
+    metadata:
+      labels:
+        app: cors-proxy
+    spec:
+      containers:
+      - name: cors-proxy
+        image: 266223780313.dkr.ecr.eu-central-1.amazonaws.com/demo:latest
+        ports:
+        - containerPort: 8080
