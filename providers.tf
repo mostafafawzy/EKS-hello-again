@@ -1,6 +1,6 @@
 provider "aws" {
   region = local.region
-  profile                 = "mostafa_personal"
+  profile                 = "default"
 }
 
 terraform {

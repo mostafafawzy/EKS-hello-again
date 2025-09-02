@@ -80,10 +80,10 @@ resource "aws_iam_role_policy_attachment" "amazon_ec2_container_registry_read_on
   role       = aws_iam_role.nodes.name
 }
 
-resource "aws_eks_node_group" "general" {
+resource "aws_eks_node_group" "my_managed_node_group" {
   cluster_name    = aws_eks_cluster.eks.name
   version         = local.eks_version
-  node_group_name = "general"
+  node_group_name = "my_managed_node_group"
   node_role_arn   = aws_iam_role.nodes.arn
 
   subnet_ids = [
@@ -92,10 +92,10 @@ resource "aws_eks_node_group" "general" {
   ]
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t3.large"]
+  instance_types = ["t3.micro"]
 
   scaling_config {
-    desired_size = 1
+    desired_size = 8
     max_size     = 10
     min_size     = 0
   }
@@ -103,15 +103,15 @@ resource "aws_eks_node_group" "general" {
   update_config {
     max_unavailable = 1
   }
-
+  
   labels = {
     role = "general"
   }
-
   depends_on = [
     aws_iam_role_policy_attachment.amazon_eks_worker_node_policy,
     aws_iam_role_policy_attachment.amazon_eks_cni_policy,
     aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only,
+    aws_eks_cluster.eks
   ]
 
   # Allow external changes without Terraform plan difference

@@ -24,8 +24,8 @@ resource "aws_subnet" "private_zone1" {
   availability_zone = local.zone1
 
   tags = {
-    "kubernetes.io/role/internal-elb"                      = "1"
-    "kubernetes.io/cluster/${local.eks_name}" = "owned"
+    "kubernetes.io/role/internal-elb"         = "1"
+    "kubernetes.io/cluster/${local.eks_name}" = "shared"
   }
 }
 
@@ -35,8 +35,8 @@ resource "aws_subnet" "private_zone2" {
   availability_zone = local.zone2
 
   tags = {
-    "kubernetes.io/role/internal-elb"                      = "1"
-    "kubernetes.io/cluster/${local.eks_name}" = "owned"
+    "kubernetes.io/role/internal-elb"         = "1"
+    "kubernetes.io/cluster/${local.eks_name}" = "shared"
   }
 }
 
@@ -47,8 +47,8 @@ resource "aws_subnet" "public_zone1" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/role/elb"                               = "1"
-    "kubernetes.io/cluster/${local.eks_name}" = "owned"
+    "kubernetes.io/role/elb"                  = "1"
+    "kubernetes.io/cluster/${local.eks_name}" = "shared"
   }
 }
 
@@ -59,8 +59,8 @@ resource "aws_subnet" "public_zone2" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/role/elb"                               = "1"
-    "kubernetes.io/cluster/${local.eks_name}" = "owned"
+    "kubernetes.io/role/elb"                  = "1"
+    "kubernetes.io/cluster/${local.eks_name}" = "shared"
   }
 }
 
